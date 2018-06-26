@@ -1,0 +1,96 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>测试asyns的Ajax</title>
+    </head>
+<body>
+
+        <h3>测试同步</h3>
+        <button>点击测试同步</button>
+        <button>点击测试异步</button>
+       <script>
+         var btn=document.querySelectorAll('button');
+
+         //点击按钮坐同步的发送请求
+         btn[0].onclick=function() {
+             console.log(111);
+
+             Ajax('HTML', false).get('/sync',function(msg) {
+                 
+                console.log(222);
+             })
+                console.log(333);
+                
+         }
+
+         //点击按钮异步发送
+         btn[1].onclick=function() {
+             console.log('aaa');
+
+             Ajax('HTML', true).get('/sync',function(msg) {
+                 
+                console.log('bbb');
+             })
+                console.log('ccc');
+                
+         }
+
+            function Ajax(dataType,bool) {
+
+               var ajax=new Object();
+
+               ajax.xhr=new XMLHttpRequest();
+
+               ajax.type=dataType==undefined? 'HTML' : dataType;
+
+               ajax.callback;
+
+               ajax.bool=bool==undefined? true : bool;
+
+               ajax.change=function() {
+
+                  if(ajax.xhr.readyState==4 && ajax.xhr.status==200) {
+                     if(ajax.type=='HTML') {
+                           ajax.callback(ajax.xhr.responseText)
+                     } else if (ajax.type=='JSON') {
+                           
+                        var obj=JSON.parse(ajax.xhr.responseText);
+                          ajax.callback(obj)
+                     }
+                          
+                     }
+                  
+               }
+
+               ajax.get=function(url,callback) {
+                
+                ajax.callback=callback;
+
+                ajax.xhr.onreadystatechange=ajax.change;
+
+                  
+                 ajax.xhr.open('GET',url,ajax.bool);
+
+                 ajax.xhr.send();
+               }
+           
+
+               ajax.post=function(url,data,callback) {
+               
+                   ajax.callback=callback;
+
+                   ajax.xhr.onreadystatechange=ajax.change;
+
+                  ajax.xhr.open('POST',url,ajax.bool);
+                  ajax.xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+                  ajax.xhr.send(data);
+               }
+
+               return ajax;
+             }
+
+       </script>
+</body>
+</html>

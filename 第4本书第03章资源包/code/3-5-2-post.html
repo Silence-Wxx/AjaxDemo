@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+</body>
+<script src="/myAjax.js"></script>
+<script>
+	Ajax('JSON').post('http://localhost:3000/3-5-2-post-data',{name:'test',city:'bj'}, function(data){
+		alert('您提交的名字是：' + data.name +  '您提交的城市是：' + data.city);
+	});
+</script>
+
+</html>
+
+

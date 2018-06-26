@@ -1,0 +1,26 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>文件引入ajax</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+</head>
+
+<body>
+    <button>点击测试引入对象</button>
+    <script src="/javascripts/ajax-1.0.js"></script>
+    <img src="/images/1.png" width="200" alt="">
+    <script>
+        var btn = document.querySelector('button');
+        btn.onclick = function () {
+            Ajax('HTML', true).get('/sync', function (msg) {
+
+                console.log('学习使人快乐');
+            })
+        }
+    </script>
+</body>
+
+</html>

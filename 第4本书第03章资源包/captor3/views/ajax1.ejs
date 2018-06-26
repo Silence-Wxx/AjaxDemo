@@ -1,0 +1,79 @@
+<!Doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <title>封装Ajax测试</title>
+</head>
+
+<body>
+    <h3>封装Ajax函数</h3>
+    <button>点击测试封装Ajax的get请求</button>
+    <button>点击测试封装Ajax的post请求</button>
+    <script>
+        var btn = document.querySelectorAll('button');
+        btn[0].onclick = function () {
+            Ajax().get('/ajax-get', function (msg) {
+                console.log(msg)
+            })
+        }
+        btn[1].onclick = function () {
+            Ajax().post('/ajax-post', '', function (msg) {
+                console.log(msg)
+            })
+        }
+
+        function Ajax(dataType, bool) {
+            var ajax = new Object();
+
+            ajax.xhr = new XMLHttpRequest();
+
+            ajax.type = dataType == undefined ? 'HTML' : dataType;
+
+            jax.callback;
+
+            ajax.bool = bool == undefined ? 'true' : bool;
+
+            ajax.change = function () {
+
+                if (ajax.xhr.readyState == 4 && ajax.xhr.status == 200) {
+                    if (ajax.type == 'HTML') {
+                        ajax.callback(ajax.xhr.responseText)
+                    } else if (ajax.type == 'JSON') {
+
+                        var obj = JSON.parse(ajax.xhr.responseText);
+                        ajax.callback(obj)
+                    }
+
+                }
+
+            }
+
+            ajax.get = function (url, callback) {
+
+                ajax.callback = callback;
+
+                ajax.xhr.onreadystatechange = ajax.change();
+
+                xhr.open('GET', url, ajax.bool);
+
+                xhr.send();
+            }
+
+
+            ajax.post = function (url, data, callback) {
+
+                ajax.callback = callback;
+
+                ajax.xhr.onreadystatechange = ajax.change();
+
+                xhr.open('POST', url, ajax.bool);
+
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+                xhr.send(data);
+            }
+
+            return ajax;
+        }
+    </script>
+</body>

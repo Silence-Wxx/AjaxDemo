@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XMLHttpRequest对象的属性</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<div class="title">
+    <h2 id="show"></h2>
+</div>
+<script>
+//创建XMLHttpRequest对象
+var xmlhttp = null;
+if (window.XMLHttpRequest) {	
+    xmlhttp = new XMLHttpRequest();//主流浏览器创建XMLHttpRequest对象
+}
+else if (window.ActiveXObject) {
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");//IE5，IE6创建XMLHttpRequest对象
+}
+
+xmlhttp.onreadystatechange = function () {
+	if (xmlhttp.readState == 4 && xmlhttp.status == 200) {
+		alert('访问成功！');
+	}
+}
+xmlhttp.open("GET", "http://127.0.0.1:3000", true);  	//设置请求信息
+xmlhttp.send(); 												//发送请求
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+	<title>注册验证</title>
+	<meta charset='utf-8'>
+	<script src='myAjax.js'></script>
+</head>
+<body>
+<form action='http://127.0.0.1:3000/reqRes' method='post' onsubmit='return checkForm()'>
+	用户名：<input type='text' name='username'><span></span><br><br>
+	密&nbsp;&nbsp;码：<input type='password' name='pass'><span></span><br><br>
+	确认密码：<input type='password' name='repass'><span></span><br><br>
+	邮&nbsp;&nbsp;箱：<input type='text' name='email' ><span></span><br><br>
+	手&nbsp;&nbsp;机：<input type='text' name='phone' ><span></span><br><br>
+	&nbsp;&nbsp;<input type='submit' value='提交' name=''>
+	<input type='reset' value='重写' name=''>
+</form>
+</body>
+<script>
+//定义标志，所有标志为1才能提交注册
+var flag_user = flag_pass = flag_repass = flag_email = flag_phone = 0;
+//获取所有input节点
+var inputs = document.getElementsByTagName('input');
+//获取所有的span标签,用于给出提示信息
+var spans = document.getElementsByTagName('span');
+//遍历input节点，给不同的input的绑定不同的事件
+for(var i = 0; i <  inputs.length; i++){
+	if(inputs[i].name == 'username'){ 	// 匹配到用户名
+	
+	} else if(inputs[i].name == 'pass'){//匹配到密码框
+	
+	}
+	...									//同样的方式匹配其他的输入框
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
+

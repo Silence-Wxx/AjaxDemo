@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+</body>
+<script src="../public/myAjax.js"></script>
+<script>
+	Ajax().jsonp('http://localhost:3000/3-6-2-json-4-data?city=tj&date=20170101', 
+		function(data){
+			alert(data.city+'在'+data.date+'的天气为'+data.weater);
+		});
+</script>
+</html>
+
+

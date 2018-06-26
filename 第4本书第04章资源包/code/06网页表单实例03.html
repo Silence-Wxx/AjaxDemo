@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+	<title>注册验证</title>
+	<meta charset='utf-8'>
+	<script src='myAjax.js'></script>
+</head>
+<body>
+<form action='http://127.0.0.1:3000/reqRes' method='post' onsubmit='return checkForm()'>
+	用户名：<input type='text' name='username'><span></span><br><br>
+	密&nbsp;&nbsp;码：<input type='password' name='pass'><span></span><br><br>
+	确认密码：<input type='password' name='repass'><span></span><br><br>
+	邮&nbsp;&nbsp;箱：<input type='text' name='email' ><span></span><br><br>
+	手&nbsp;&nbsp;机：<input type='text' name='phone' ><span></span><br><br>
+	&nbsp;&nbsp;<input type='submit' value='提交' name=''>
+	<input type='reset' value='重写' name=''>
+</form>
+</body>
+<script>
+//定义标志，所有标志为1才能提交注册
+var flag_user = flag_pass = flag_repass = flag_email = flag_phone = 0;
+//获取所有input节点
+var inputs = document.getElementsByTagName('input');
+//获取所有的span标签,用于给出提示信息
+var spans = document.getElementsByTagName('span');
+//遍历input节点，给不同的input的绑定不同的事件
+for(var i = 0; inputs.length; i++){
+	if(inputs[i].name == 'username'){ 	// 匹配到用户名，进行验证
+		var index_u = i;				//保存i的值，作为下标
+		//绑定获得焦点事件，获得焦点清空输入框
+		inputs[index_u].onfocus = function(){
+			//获取焦点事件提示用户输入正确格式
+			spans[index_u].innerHTML = '用户名为6-16为英文、数字和下划线组成';
+			this.value = '';			//	清空输入框
+		}
+		//绑定失去焦点事件，失去焦点进行验证
+		inputs[index_u].onblur = function(){
+			//失去焦点先进行用户名的格式验证，
+			//符合要求才发送Ajax到服务器验证是否存在
+			var reg = '/^[a-zA-Z\d_]\w{6,16}$/';//正则表达式
+			if(reg.test(this.value)){
+				//验证成功，Ajax远程请求服务器进行用户名验证
+				Ajax('json',false).post('http://127.0.0.1:3000/checkReg',{username:this.value},function(data){
+					//判断结果，执行不同的操作
+					if(data.flag == 0){ //该用户不存在于数据库，可以注册
+						flag_user = 1;
+						spans[index_u].innerHTML = data.message;
+					}else{
+						flag_user = 0;
+						spans[index_u].innerHTML = data.message;
+					}
+				});
+			}else{						//验证失败，提示用户
+				spans[index_u].innerHTML = '用户名格式不正确'; //提示用户
+			}
+		}
+	} else if(inputs[i].name == 'pass'){//匹配到密码框
+	
+	}
+	...									//同样的方式匹配其他的输入框
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
+

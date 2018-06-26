@@ -1,0 +1,22 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>jsonp的测试问题</title>
+</head>
+
+<body>
+    <h3>测试JSONP的跨域问题</h3>
+    <button>点击我进行测试JSONP</button>
+    <script>
+        //定义函数
+        function demo(msg) {
+            console.log(msg);
+        }
+    </script>
+       <!--在JS文件中引用函数 cd为callback函数-->
+       <script src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=刘俊俊&cb=demo"></script>
+</body>
+
+</html>

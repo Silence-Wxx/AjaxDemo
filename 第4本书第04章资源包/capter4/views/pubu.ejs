@@ -1,0 +1,99 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>瀑布流的学习</title>
+    <style type="text/css">
+      *{margin:0;padding:0;border:0;}
+      img{  width:200px;
+            display:block;
+            position:absolute;
+            transition:1s
+            }
+    </style>
+    <script src="/javascripts/ajax-1.0.js"></script>
+  
+</head>
+<body>
+    <h3>瀑布流页面的学习</h3>
+    <img src="/images/1.jpg" width="200">
+    <img src="/images/2.jpg" width="200">
+    <img src="/images/3.jpg" width="200">
+    <img src="/images/4.jpg" width="200">
+    <img src="/images/5.jpg" width="200">
+    <img src="/images/6.jpg" width="200">
+    <img src="/images/7.jpg" width="200">
+    <img src="/images/8.jpg" width="200">
+    <img src="/images/9.jpg" width="200">
+    <img src="/images/10.jpg" width="200">
+
+</body>
+</html>
+<script type="text/javascript">
+	window.onload = layout;  		//页面一加载就调用layout对页面布局
+	window.onresize = function(){      //窗口改变也调用函数  
+        layout();
+    }
+	
+	//这个函数用来布局页面中的img排列方式
+    function layout() {
+        var allImg = document.getElementsByTagName('img');  //获取所有的img标签
+        var windowWidth = document.documentElement.clientWidth;  //窗口视图的宽度
+        var n = Math.floor(windowWidth/220);                     //一行能容纳多少个img，并向下取整
+        if (n <= 0) {return};  	//如果页面没有标签，则直接返回，不用布局
+        var center = (windowWidth - n*220)/2;                 //计算页面两端有多少空白，用于居中
+        var arrH = [];                                       //定义一个数组存放img的高度
+        for (var i = 0; i < allImg.length; i++) {
+            var j = i%n;     //用来计算是第几个img，用于给数组做索引，保证数组长度始终是等于每行的个数n                            
+            if (arrH.length == n) { 			//一行排满n个后到下一行，下一行开始，从高度最低的开始排                    
+				var min = getMin(arrH);              //从高度最低的开始排
+				allImg[i].style.left = center + min*220 + "px";   //左右定位，并给一个20px的间距
+                allImg[i].style.top = arrH[min] + 20 + "px";   //上下定位，并给一个20px的间距
+				//把高度最低的img的高度放进数组，并给一个20px的间距
+                arrH[min] += allImg[i].offsetHeight + 20;   
+            } else { //这个是用来排列第一行的
+                arrH[j] = allImg[i].offsetHeight;     //把img的高度放入数组
+                allImg[i].style.left = center + 220*j + "px";  //左右定位，居中空白加
+                allImg[i].style.top = 0;   //上下定位0
+            }
+        };
+    }
+
+	//找出高度最小的那个索引并返回
+	function getMin(arr) {
+		var m = 0; //初始化一个用于比较的索引变量
+		for (var i = 0; i < arr.length; i++) {
+			//进行比较，每次都返回最小的那个
+			m = Math.min(arr[m], arr[i]) == arr[m] ? m : i;
+		}
+		return m;
+	}
+	
+	//当滚动条发生变化时触发这个函数，到一定值是触发Ajax请求
+    window.onscroll= function  () {
+        // 可视区窗口高度
+        var windowHeight = document.documentElement.clientHeight;
+        //滚动条的高度    
+        var srcollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        //页面总高度
+        var srcollH = document.documentElement.scrollHeight;
+        // alert(srcollH);
+        if (srcollTop+windowHeight  == srcollH) {
+              //发送Ajax请求,同步方式
+            Ajax('JSON',false).get('/getData', function(data){
+                //拿到数据之后创建节点，多个数据用循环
+                console.log(data)
+            	for (var i=0;i<data.length;i++) {
+            		//创建标签
+    		        var img = document.createElement('img');
+    		        //绑定url
+    		        img.src = data[i].url;
+    		        //放到页面中显示
+    		        document.body.appendChild(img);
+            	}
+				//追加新的节点之后重新布局页面
+				layout();
+			});
+		}
+    }
+</script>

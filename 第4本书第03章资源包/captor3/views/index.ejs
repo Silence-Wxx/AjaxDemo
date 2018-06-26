@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>第一次测试Ajax请求</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>第一次测试Ajax-post请求</h1>
+       <button>点击我进行测试post</button>
+       <script>
+       var btn=document.querySelector('button');
+           btn.onclick=function() {
+
+           var xhr=new XMLHttpRequest();
+           xhr.onreadystatechange=function() {
+               if(xhr.readyState==4 && xhr.status==200) {
+                   alert(xhr.responseText);
+               }
+           }
+           xhr.open('POST','/post',true);
+           xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+           xhr.send('username=王小米');
+
+           }
+       
+       
+       </script>
+         
+             </script>
+  </body>
+</html>

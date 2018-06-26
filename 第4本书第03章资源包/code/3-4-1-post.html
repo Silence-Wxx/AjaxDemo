@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>古诗词填写</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		input{border: 0px;border-bottom: 1px solid black; width:135px;outline: none;font-size: 18px;}
+		#showAnswer{font-size: 18px;color: red;}
+	</style>
+</head>
+<body>
+<div class="title">
+	<h2>过零丁洋</h2>
+	<h3>辛苦遭逢起一经，干戈寥落四周星。</h3>
+	<h3>山河破碎风飘絮，身世浮沉雨打萍。</h3>
+	<h3>惶恐滩头说惶恐，零丁洋里叹零丁。</h3>
+	<input type="text" name="answer1" id="answer1">，
+	<input type="text" name="answer2" id="answer2">。<br /><br />
+	<button onclick="putAnswer()">提交答案</button>
+	<div id="showAnswer"></div>
+</div>
+</body>
+<script>
+//创建XMLHttpRequest对象
+var xmlhttp = null;
+if (window.XMLHttpRequest) {
+	xmlhttp = new XMLHttpRequest();//主流浏览器创建XMLHttpRequest对象
+}
+else if (window.ActiveXObject) {
+	xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");//IE5，IE6创建XMLHttpRequest对象
+}
+
+//向服务器提交答案
+function putAnswer() {
+	var answer1 = document.getElementById('answer1').value;
+	var answer2 = document.getElementById('answer2').value;
+	//onreadystatechange事件
+	xmlhttp.onreadystatechange = function () {
+		if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+			var result = xmlhttp.responseText;  	//获取服务器响应
+			alert('您的答案：' + result);          //提示结果
+		}
+	};
+	xmlhttp.open("POST", "http://localhost:3000/3-4-1-checkAnswer", true);//设置请求信息
+	//设置请求头信息
+	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	//发送请求
+	xmlhttp.send('answer1=' + answer1 + '&answer2=' + answer2);
+}
+
+	//向服务器请求正确答案
+	function getAnswer() {
+		//onreadystatechange事件
+		xmlhttp.onreadystatechange = function () {
+			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+				var result = xmlhttp.responseText;  //获取服务器响应
+				var obj = JSON.parse(result);   //将服务器返回数据转为json对象
+				//展示数据
+				document.getElementById('showAnswer').innerHTML = obj.answer1 + '？' + obj.answer2 + '。';
+			}
+		};
+		xmlhttp.open("GET", "http://localhost:3000/3-4-2-getAnswer", true);  	//设置请求信息
+		xmlhttp.send(); 	//发送请求
+	}
+</script>
+
+</html>
+
+

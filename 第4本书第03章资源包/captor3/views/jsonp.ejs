@@ -1,0 +1,23 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>jsonp的测试问题</title>
+    <script src="/javascripts/ajax-1.0.js"></script>
+</head>
+
+<body>
+    <h3>测试JSONP的跨域问题</h3>
+    <button>点击我进行测试JSONP</button>
+    <script>
+        //定义函数
+        function demo(str) {
+            console.log('学习ajax技术',str);
+        }
+    </script>
+       <!--在JS文件中引用函数-->
+       <script src="/javascripts/demo.js"></script>
+</body>
+
+</html>

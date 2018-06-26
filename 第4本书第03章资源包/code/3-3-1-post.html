@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+</body>
+<script>
+//首先创建XMLHttpRequest对象
+var xmlhttp = null;
+if (window.XMLHttpRequest) {// 创建所有主流浏览的支持的XMLHttpRequest对象
+	xmlhttp = new XMLHttpRequest();
+}
+else if (window.ActiveXObject) {// 创建IE5和IE6支持的XMLHttpRequest对象
+	xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+}
+//初始化请求参数, 设置请求信息
+xmlhttp.open("post", "http://localhost:3000/3-3-1-post-data", false); 
+//设置请求头信息
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//发送请求
+xmlhttp.send("name=Tom&age=18");
+</script>
+
+</html>
+
+

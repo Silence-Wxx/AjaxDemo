@@ -1,0 +1,43 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>jsonp的测试问题</title>
+</head>
+
+<body>
+    <h3>测试JSONP的跨域问题</h3>
+    <input type="text" name="username">
+    <ul>
+
+    </ul>
+    <script>
+        //定义函数
+        function demo(msg) {
+
+            var str = '';
+            for (var i = 0; i < msg.s.length; i++) {
+
+                str += '<li><a href="https://www.baidu.com/s?wd=' +msg.s[i]+ '">' +msg.s[i]+ '</a></li>'
+            }
+
+            ul.innerHTML = str;
+
+        }
+        var username = document.querySelector('input');
+
+        var ul = document.querySelector('ul')
+
+        username.onblur = function () {
+
+            var value = username.value;
+            var script = document.createElement('script');
+            script.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + value + '&cb=demo';
+            document.body.appendChild(script);
+        }
+    </script>
+
+</body>
+
+</html>

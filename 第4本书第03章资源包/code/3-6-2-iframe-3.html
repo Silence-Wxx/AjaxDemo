@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<button onclick="getData()">点击发起跨域请求数据</button>
+<iframe id="iframe" src="http://localhost:3000/3-6-2-iframe-data?name=兄弟连"
+ style="display:none"></iframe>
+</body>
+<script>
+function getData(){
+	//获取iframe元素标签对象
+	var iframe = document.getElementById('iframe');
+	iframe.src = 'about:blank';  //因为是空白页面，所以就不存在域了
+	//让iframe重新加载一次，地址就变成我们同域的了（空白页面和任何域都同域）
+	iframe.onload = function(){
+		//iframe中的contentWindow对象相当于我们正常打开页面的window对象，获取它的name值
+		var data = iframe.contentWindow.name;
+		data = JSON.parse(data);  //把它的值转为json格式
+		alert(data.name + '的口号是：' + data.info); //输出答应数据
+	}
+}
+</script>
+</html>
+
+

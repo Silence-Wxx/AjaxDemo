@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<button onclick="getData()">点击发起跨域请求数据</button>
+</body>
+<script src="../public/myAjax.js"></script>
+<script>
+function getData(){
+	Ajax('JSON').iframe('http://localhost:3000/3-6-2-iframe-data?name=兄弟连', function(data){
+		alert(data.name + '的口号是：' + data.info); //输出答应数据
+	});
+}
+</script>
+</html>
+
+

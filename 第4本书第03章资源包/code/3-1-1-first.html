@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ajax初体验</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<div class="title">
+	<h2>Ajax初体验</h2>
+	<button onclick="getData()">点击获取服务器数据</button>
+</div>
+</body>
+<script src="/ajax3.0.js"></script>
+<script>
+	//点击事件执行这个函数
+	function getData(){
+		//使用Ajax对象请求服务器
+		//get方式，参数1是请求地址，参数2回调函数接收数据
+		Ajax().get('./3-1-1-first-data',function(data){
+			alert('服务器返回的数据是：' + data); //data接收服务器返回的数据
+		});
+	}
+</script>
+
+</html>
+
+

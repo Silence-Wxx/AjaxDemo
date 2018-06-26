@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>异步请求</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	<div>相见时难别亦难，东风无力百花残。</div>
+	<div>春蚕到死丝方尽，蜡炬成灰泪始干。</div>
+	<div id="three"></div>
+	<div>蓬山此去无多路，青鸟殷勤为探看。</div>
+</body>
+<script src="/ajax3.0.js"></script>
+<script>
+	//发送ajax请求，异步请求数据
+	Ajax('html', true).get('./3-2-3-data', function(data){
+		document.getElementById('three').innerHTML = data;
+	});
+	//这个弹窗用来验证Ajax是同步还是异步
+	alert('异步请求不会等待AJAX请求结束，继续执行下面的代码！');
+</script>
+
+</html>
+
+

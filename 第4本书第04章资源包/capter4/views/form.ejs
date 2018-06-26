@@ -1,0 +1,77 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>用户名存在测试</title>
+
+</head>
+
+
+<body>
+
+    <h3>表单密码验证</h3>
+    <form action="" method="POST">
+        用户名：
+        <input type="text" name="username" value="">
+        <span></span>
+        <br>
+        <br> 密码：
+        <input type="password" name="password" value="">
+        <span></span>
+        <br>
+        <br>
+        <input type="submit" value="提交">
+
+    </form>
+    <script src="/javascripts/ajax-1.0.js"></script>
+    <script>
+        var form = document.querySelector('form');
+        var inp = document.querySelectorAll('input');
+        var span = document.querySelectorAll('span');
+
+        var ubool = false;
+        var pbool = false;
+        inp[0].onblur = function () {
+
+            var username = this.value;
+            //验证用户名
+            var reg = /^[\w]{6,16}$/;
+
+            if (reg.test(username)) {
+                ubool = true;
+                span[0].innerHTML = '用户名合法';
+            } else {
+                ubool = false;
+                span[0].innerHTML = '用户名不合法';
+            }
+        }
+
+        inp[1].onblur = function () {
+
+            var password = this.value;
+            var reg = /^[0-9a-zA-Z]{6,16}$/
+            if (reg.test(password)) {
+
+                pbool = true;
+                span[1].innerHTML = '密码合法';
+            } else {
+
+                pbool = false;
+                span[1].innerHTML = '密码不合法';
+            }
+        }
+
+        form.onsubmit = function () {
+            if (ubool && pbool) {
+
+                return true;
+            } else {
+
+                return false;
+            }
+
+        }
+    </script>
+    </body>
+    </html>

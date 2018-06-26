@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+</body>
+<script>
+//创建XMLHttpRequest对象
+var xmlhttp = null;
+if (window.XMLHttpRequest) {
+	xmlhttp = new XMLHttpRequest();//主流浏览器创建XMLHttpRequest对象
+	//弹出readyState值
+	alert('XMLHttpRequest对象创建时readyState的值为：' + xmlhttp.readyState);
+}
+else if (window.ActiveXObject) {
+	//IE5，IE6创建XMLHttpRequest对象
+	xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	//弹出readyState值
+	alert('XMLHttpRequest对象创建时readyState的值为：' + xmlhttp.readyState);
+}
+
+var i = 1;  //定义计数变量
+//每一次readyState的状态改变，都会触发onreadystatechange事件
+xmlhttp.onreadystatechange = function () {
+	//验证readyState状态的改变，触发这个事件
+	if (xmlhttp.readyState === 1) {
+		alert('open()方法执行完毕！readyState的值由0变为1!onreadystatechange第'
+				+ i++ + '次触发！');
+	} else if (xmlhttp.readyState === 2) {
+		alert('send()方法执行完毕！readyState的值由1变为2!onreadystatechange第'
+				+ i++ + '次触发！');
+	} else if (xmlhttp.readyState === 3) {
+		alert('接收响应头信息完成！readyState的值由2变为3!onreadystatechange第'
+				+ i++ + '次触发！');
+	} else if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+		alert('接收响应数据体完成！readyState的值由3变为4!onreadystatechange第'
+				+ i++ + '次触发！');
+		//弹出服务器响应状态
+		alert('服务器响应状态码为：' + xmlhttp.status + '！响应状态文本为：'
+				+ xmlhttp.statusText);
+		alert('服务器响应数据为：' + xmlhttp.responseText);//弹出服务器响应的数据
+	} else {
+		//请求失败处理
+		alert('服务器响应失败，失败状态码为：' + xmlhttp.status + '失败文本为：'
+				+ xmlhttp.statusText);
+	}
+};
+//设置请求信息
+xmlhttp.open("GET", "http://localhost:3000/3-3-2-readyState-data", true);  	
+xmlhttp.send();
+
+
+</script>
+
+</html>
+
+
